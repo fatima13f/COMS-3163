@@ -4,9 +4,10 @@ function sumOf(arr) {
     let sum = arr.reduce((accumulator, currentVal) => {
         return accumulator + currentVal
     }, 0)
-    console.log(sum)
+
+    return sum
 }
 
-sumOf([1, 6, 3, 4])
-sumOf([12, 6, 8, 5, 6, 3])
-sumOf([77, 1, 20])
+console.log(sumOf([1, 6, 3, 4]))
+console.log(sumOf([50, 3, 8, 12]))
+console.log(sumOf([77, 4, 40]))
