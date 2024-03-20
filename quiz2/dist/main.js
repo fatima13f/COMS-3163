@@ -1,5 +1,5 @@
 "use strict";
-var _a, _b;
+var _a, _b, _c;
 const questions = [
     { type: 'true_false', question: 'Qui-Gon Jinn is killed by Jar Jar Binks', answer: 'false' },
     { type: 'true_false', question: 'The name of Boba Fett`s ship is Slave 1', answer: 'true' },
@@ -110,7 +110,15 @@ shuffleQuestions();
     document.getElementById('start-page').style.display = 'none';
     loadQuestion();
 });
-(_b = document.getElementById('submit-btn')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+(_b = document.getElementById('restart-btn')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+    console.log('starting new quiz..');
+    score = 0;
+    currentQuestionIndex = -1;
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('score-page').style.display = 'none';
+    loadQuestion();
+});
+(_c = document.getElementById('submit-btn')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
     var _a;
     console.log(currentQuestionIndex);
     const answer = (_a = document.querySelector(`input[name="answer${currentQuestionIndex}"]:checked`)) === null || _a === void 0 ? void 0 : _a.value;

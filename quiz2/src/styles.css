@@ -7,6 +7,12 @@ label,
 input {
   margin: 10;
   padding: 10;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: 'Zen Dots', sans-serif;
 }
 
 #start-page {
@@ -23,12 +29,25 @@ input {
   cursor: pointer;
 }
 
+#restart-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 #start-btn:hover {
   background-color: #218838;
 }
 
+#restart-btn:hover {
+  background-color: #218838;
+}
+
 #quiz-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f8f8f8;
@@ -68,7 +87,7 @@ button:hover {
 }
 
 #score-page {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f8f8f8;

@@ -126,6 +126,18 @@ document.getElementById('start-btn')?.addEventListener('click', () => {
   loadQuestion();
 });
 
+document.getElementById('restart-btn')?.addEventListener('click', () => {
+  console.log('starting new quiz..');
+
+  score = 0;
+  currentQuestionIndex = -1;
+
+  document.getElementById('quiz-container')!.style.display = 'block';
+  document.getElementById('score-page')!.style.display = 'none';
+
+  loadQuestion();
+});
+
 document.getElementById('submit-btn')?.addEventListener('click', () => {
   console.log(currentQuestionIndex);
   const answer = document.querySelector(`input[name="answer${currentQuestionIndex}"]:checked`)?.value;
