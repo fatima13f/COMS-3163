@@ -28,7 +28,7 @@ const questions = [
   },
   {
     type: 'multiple_choice',
-    question: 'On which plante did Yoda train Luke in The Empire Strikes Back?',
+    question: 'On which plant did Yoda train Luke in The Empire Strikes Back?',
     options: ['Dagobah', 'Daivak', 'Coruscant'],
     answer: 'Dagobah',
   },
