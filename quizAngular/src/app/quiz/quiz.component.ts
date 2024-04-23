@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../quiz.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -10,9 +11,10 @@ export class QuizComponent implements OnInit {
   currentQuestion: any;
   userAnswer: string | null = null;
 
-  constructor(public quizService: QuizService) {}
+  constructor(public quizService: QuizService, private router: Router) {}
 
   ngOnInit(): void {
+    this.quizService.restartQuiz();
     this.quizService.shuffleQuestions();
     this.loadQuestion();
   }
@@ -20,6 +22,9 @@ export class QuizComponent implements OnInit {
   loadQuestion() {
     this.currentQuestion = this.quizService.loadQuestion();
     this.userAnswer = null;
+    if (!this.currentQuestion) {
+      this.router.navigate(['/score']);
+    }
   }
 
   submitAnswer() {

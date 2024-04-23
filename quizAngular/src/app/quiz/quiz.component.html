@@ -1,6 +1,6 @@
 <div *ngIf="currentQuestion">
   <h1>{{ currentQuestion.question }}</h1>
-  <div *ngIf="currentQuestion.type === 'true_false'; else multipleChoice">
+  <div *ngIf="currentQuestion.type === 'true_false'">
     <label
       ><input type="radio" [(ngModel)]="userAnswer" value="true" /> True</label
     >
@@ -9,21 +9,13 @@
       False</label
     >
   </div>
-  <ng-template #multipleChoice>
+  <ng-container *ngIf="currentQuestion.type === 'multiple_choice'">
     <div *ngFor="let option of currentQuestion.options">
-      <label
-        ><input type="radio" [(ngModel)]="userAnswer" [value]="option" />
-        {{ option }}</label
-      >
+      <label>
+        <input type="radio" [(ngModel)]="userAnswer" [value]="option" />
+        {{ option }}
+      </label>
     </div>
-  </ng-template>
+  </ng-container>
   <button (click)="submitAnswer()">Submit</button>
-</div>
-<div *ngIf="!currentQuestion">
-  <h2>
-    Quiz Completed! Your Score is {{ quizService.getScore() }}/{{
-      quizService.questions.length
-    }}
-  </h2>
-  <button routerLink="/start">Restart Quiz</button>
 </div>
