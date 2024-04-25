@@ -1,14 +1,16 @@
-<h2>
-  Quiz Complete! Your Score is {{ quizService.getScore() }}/{{
-    quizService.questions.length
-  }}
-</h2>
+<div id="score-page">
+  <h2>
+    Quiz Complete! Your Score is {{ quizService.getScore() }}/{{
+      quizService.questions.length
+    }}
+  </h2>
 
-<div *ngFor="let question of quizService.questions; let i = index">
-  <p>Question {{ i + 1 }}: {{ question.question }}</p>
-  <p>Correct Answer: {{ question.answer }}</p>
-  <p>Your Answer: {{ quizService.getUserAnswers()[i] || "Not answered" }}</p>
-  <hr />
+  <div *ngFor="let question of quizService.questions; let i = index">
+    <p>Question {{ i + 1 }}: {{ question.question }}</p>
+    <p>Correct Answer: {{ question.answer }}</p>
+    <p>Your Answer: {{ quizService.getUserAnswers()[i] || "Not answered" }}</p>
+    <hr />
+  </div>
+
+  <button routerLink="/start" id="restart-btn">Restart Quiz</button>
 </div>
-
-<button routerLink="/start" id="restart-btn">Restart Quiz</button>
