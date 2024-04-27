@@ -1,7 +1,9 @@
 import { useState } from "react";
+import StartPage from "./startPage";
+import questions from "../questions.json";
 
 function App() {
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
 
@@ -9,12 +11,15 @@ function App() {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
   };
 
-  const submitAnswer = (answer: any) => {
-    setUserAnswers([...userAnswers, answer]);
-    if (answer === questions[currentQuestionIndex].answer) {
-      setScore(score + 1);
+  const submitAnswer = (answer: string) => {
+    if (currentQuestionIndex < questions.length) {
+      setUserAnswers([...userAnswers, answer]);
+      if (answer === questions[currentQuestionIndex].answer) {
+        setScore(score + 1);
+      }
+      loadQuestion();
+    } else {
     }
-    loadQuestion();
   };
 
   const restartQuiz = () => {
@@ -25,7 +30,7 @@ function App() {
 
   return (
     <div>
-      {currentQuestionIndex === -1 && <startPage onStartQuiz={loadQuestion} />}
+      {currentQuestionIndex === -1 && <StartPage onStartQuiz={loadQuestion} />}
     </div>
   );
 }
