@@ -94,13 +94,3 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-
-/* Hide quiz container initially */
-#quiz-container {
-  display: none;
-}
-
-/* Hide score page initially */
-#score-page {
-  display: none;
-}
