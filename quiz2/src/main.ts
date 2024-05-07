@@ -1,46 +1,23 @@
-const questions = [
-  { type: 'true_false', question: 'Qui-Gon Jinn is killed by Jar Jar Binks', answer: 'false' },
-  { type: 'true_false', question: 'The name of Boba Fett`s ship is Slave 1', answer: 'true' },
-  { type: 'true_false', question: 'Darth Vadar issued Order 66 in Revenge of the Sith', answer: 'false' },
-  {
-    type: 'true_false',
-    question: 'Hayden Christensen plays Anakin Skywalker in the Star Wars prequels',
-    answer: 'true',
-  },
-  { type: 'true_false', question: 'The Empire Strikes Back was released in 1980', answer: 'true' },
-  {
-    type: 'multiple_choice',
-    question: 'What is Chewbacca`s home planet?',
-    options: ['Kashyyyk', 'Tatooine', 'Alderaan'],
-    answer: 'Kashyyyk',
-  },
-  {
-    type: 'multiple_choice',
-    question: 'Who killed Han Solo?',
-    options: ['Kylo Ren', 'Luke Skywalker', 'Jabba the Hutt'],
-    answer: 'Kylo Ren',
-  },
-  {
-    type: 'multiple_choice',
-    question: 'What does Yoda say is the path to the dark side?',
-    options: ['Anger', 'Love', 'Fear'],
-    answer: 'Fear',
-  },
-  {
-    type: 'multiple_choice',
-    question: 'On which plant did Yoda train Luke in The Empire Strikes Back?',
-    options: ['Dagobah', 'Daivak', 'Coruscant'],
-    answer: 'Dagobah',
-  },
-  { type: 'multiple_choice', question: 'What episode is A New Hope?', options: ['I', 'IV', 'III'], answer: 'IV' },
-];
+async function fetchQuestions() {
+  try {
+    const response = await fetch('/quiz');
+    if (!response.ok) {
+      throw new Error('Failed to fetch quiz questions');
+    }
+    const questions = await response.json();
+    return questions;
+  } catch (error) {
+    console.error('Error fetching quiz questions', error);
+    throw error;
+  }
+}
 
 let userAnswers: any[] = [];
 
 let score = 0;
 let currentQuestionIndex = -1;
 
-function shuffleQuestions() {
+function shuffleQuestions(questions: any[]) {
   for (let i = questions.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [questions[i], questions[j]] = [questions[j], questions[i]];
@@ -62,31 +39,33 @@ function loadMultipleChoice(question: any, optionsElement: HTMLElement) {
   });
 }
 
-function loadQuestion() {
-  console.log('load question...');
-  currentQuestionIndex++;
+async function loadQuestion() {
+  try {
+    const questions = await fetchQuestions();
+    currentQuestionIndex++;
 
-  if (currentQuestionIndex < questions.length) {
-    const currentQuestion = questions[currentQuestionIndex];
-    const questionElement = document.getElementById('question');
-    const optionsElement = document.getElementById('options');
-
-    questionElement!.textContent = currentQuestion.question;
-    optionsElement!.innerHTML = ' ';
-
-    if (currentQuestion.type === 'true_false') {
-      console.log('load true false...');
-      loadTrueFalse(currentQuestion, optionsElement!);
-    } else if (currentQuestion.type === 'multiple_choice') {
-      console.log('load multiple choice...');
-      loadMultipleChoice(currentQuestion, optionsElement!);
+    if (currentQuestionIndex < questions.length) {
+      const currentQuestion = questions[currentQuestionIndex];
+      const questionElement = document.getElementById('question');
+      const optionsElement = document.getElementById('options');
+      questionElement!.textContent = currentQuestion.question;
+      optionsElement!.innerHTML = ' ';
+      if (currentQuestion.type === 'true_false') {
+        console.log('load true false...');
+        loadTrueFalse(currentQuestion, optionsElement!);
+      } else if (currentQuestion.type === 'multiple_choice') {
+        console.log('load multiple choice...');
+        loadMultipleChoice(currentQuestion, optionsElement!);
+      }
+    } else {
+      quizComplete();
     }
-  } else {
-    quizComplete();
+  } catch (error) {
+    console.error('Error loading question', error);
   }
 }
 
-function quizComplete() {
+function quizComplete(questions: any[]) {
   console.log('sending to score page...');
 
   document.getElementById('quiz-container')!.style.display = 'none';
